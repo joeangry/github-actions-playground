@@ -28,7 +28,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world! Build number is ${{ steps.build-date.outputs.date }}${{ github.run_id }}
+        run: echo Hello, world! Build number is ${{ steps.build-date.outputs.date }}${{ env.GITHUB_RUN_NUMBER }}
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
