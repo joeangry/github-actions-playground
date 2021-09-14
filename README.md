@@ -1,3 +1,3 @@
 # github-actions-playground
 
-This is new a release branch!
+Some minor change!
