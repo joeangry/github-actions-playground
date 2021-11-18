@@ -27,5 +27,5 @@ jobs:
       - name: Run a one-line script
         run: |
           echo Hello, world! Build number is ${{ steps.build-date.outputs.date }}.$GITHUB_RUN_NUMBER
-          echo I'm in the branch ${GITHUB_REF#refs/heads/}
+          echo Im in the branch ${GITHUB_REF#refs/heads/}
 
