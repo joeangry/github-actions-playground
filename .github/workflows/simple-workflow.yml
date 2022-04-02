@@ -26,7 +26,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          echo Hello, world! Build number is ${{ steps.build-date.outputs.date }}.$GITHUB_RUN_NUMBER.$GITHUB_
+          echo Hello, world! Build number is ${{ steps.build-date.outputs.date }}.$GITHUB_RUN_NUMBER
           echo Im in the branch ${GITHUB_REF#refs/heads/}
 
   dump_contexts_to_log:
