@@ -13,7 +13,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    outputs:
+      output1: ${{ steps.foo.outputs.test }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -29,12 +30,14 @@ jobs:
           version-number: ${{ github.run_number }}${{ github.run_attempt }}
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - id: output-test
+        name: Run a one-line script
         run: |
           echo Build number is ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
           echo Build number is ${{ steps.foo.outputs.build-number }}
           echo "LIVE_VERSION=${{ steps.build-info.outputs.build-number }}" >> $GITHUB_ENV          
           echo Im in the branch ${GITHUB_REF#refs/heads/}
+          echo "::set-output name=test::${{ steps.foo.outputs.build-number }}"
 
       - name: Last job
         run: echo Environment variable is ${{ env.LIVE_VERSION}}
@@ -43,7 +46,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Print environment variable
-          run: echo echo "${{ env.LIVE_VERSION }}"
+          run: echo ${{needs.build.outputs.test}}
         - name: Dump GitHub context
           id: github_context_step
           run: echo '${{ toJSON(github) }}'
