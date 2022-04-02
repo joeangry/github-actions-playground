@@ -10,7 +10,7 @@ inputs:
 outputs:
   build-number:
     description: build number based on (current date).(run-number&run-attempt)
-    value: ${{ steps.build-date.outputs.build-date-output}}${{inputs.version-number}}
+    value: ${{ steps.build-date.outputs.build-date-output}}.${{inputs.version-number}}
 
 runs:
   using: "composite"
