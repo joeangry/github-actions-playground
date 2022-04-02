@@ -26,7 +26,7 @@ jobs:
       - id: foo
         uses: ./.github/actions/get-build-number
         with:
-          version-number: ${{ github.run_number }}{{ github.run_attempt }}
+          version-number: ${{ github.run_number }}${{ github.run_attempt }}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
