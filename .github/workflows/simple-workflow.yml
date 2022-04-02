@@ -33,11 +33,14 @@ jobs:
         run: |
           echo Build number is ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
           echo Build number is ${{ steps.foo.outputs.build-number }}
+          echo LIVE_VERSION=${{ steps.build-info.outputs.build-number }} >> $GITHUB_ENV
           echo Im in the branch ${GITHUB_REF#refs/heads/}
 
   dump_contexts_to_log:
       runs-on: ubuntu-latest
       steps:
+        - name: Print environment variable
+          run: echo echo "${{ env.LIVE_VERSION }}"
         - name: Dump GitHub context
           id: github_context_step
           run: echo '${{ toJSON(github) }}'
