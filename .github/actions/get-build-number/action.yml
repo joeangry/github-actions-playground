@@ -1,0 +1,22 @@
+
+
+name: Build console
+description: 'Builds code with a given version number'
+inputs:
+  version-number:
+    required: true
+    description: 'The version number assigned into assembly info'
+
+outputs:
+  build-number:
+    description: build number based on (current date).(run-number&run-attempt)
+    value: ${{ steps.build-date.outputs.build-date-output}}${{inputs.version-number}}
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Get current date
+      id: build-date
+      run: echo "::set-output name=build-date-output::$(date +'%Y.%m.%d')"
+      shell: bash

@@ -23,10 +23,16 @@ jobs:
         id: build-date
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
 
+      - id: foo
+        uses: actions/get-build-number@v1
+        with:
+          version-number: $GITHUB_RUN_NUMBER.${{ github.run_attempt }}
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          echo Hello, world! Build number is ${{ steps.build-date.outputs.date }}.$GITHUB_RUN_NUMBER.${{ github.run_attempt }}
+          echo Build number is ${{ steps.build-date.outputs.date }}.$GITHUB_RUN_NUMBER.${{ github.run_attempt }}
+          echo Build number is ${{ steps.foo.outputs.build-number }}
           echo Im in the branch ${GITHUB_REF#refs/heads/}
 
   dump_contexts_to_log:
