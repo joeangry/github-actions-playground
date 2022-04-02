@@ -17,14 +17,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get current date
         id: build-date
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
 
       - id: foo
-        uses: actions/get-build-number@v1
+        uses: .github/actions/get-build-number
         with:
           version-number: $GITHUB_RUN_NUMBER.${{ github.run_attempt }}
 
