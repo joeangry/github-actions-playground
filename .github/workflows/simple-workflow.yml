@@ -24,7 +24,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
 
       - id: foo
-        uses: .github/actions/get-build-number
+        uses: ./.github/actions/get-build-number
         with:
           version-number: $GITHUB_RUN_NUMBER.${{ github.run_attempt }}
 
