@@ -5,8 +5,6 @@ name: Workflow Dispatch Test
 # Controls when the workflow will run
 on:
   workflow_dispatch:
-    branches:
-      - release/**
     inputs:
       version:
         description: 'Version number year.major.patch (2022.1.2)'
