@@ -56,3 +56,19 @@ jobs:
         #   run: echo '${{ toJSON(strategy) }}'
         # - name: Dump matrix context
         #   run: echo '${{ toJSON(matrix) }}'
+
+
+  tag_release:
+    - name: Git checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: git
+      run: |
+        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+        git --version
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git status
+        git git tag -a ${{ steps.foo.outputs.build-number }}
+        git describe
