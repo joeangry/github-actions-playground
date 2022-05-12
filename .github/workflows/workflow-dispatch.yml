@@ -41,14 +41,6 @@ jobs:
           echo Im in the branch ${GITHUB_REF#refs/heads/}
           echo ::set-output name=test::${{ steps.foo.outputs.build-number }}
 
-
-  tag_release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
       - name: git
         run: |
           # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
