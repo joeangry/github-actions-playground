@@ -41,11 +41,25 @@ jobs:
           echo Im in the branch ${GITHUB_REF#refs/heads/}
           echo ::set-output name=test::${{ steps.foo.outputs.build-number }}
 
-      - name: git
-        run: |
-          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-          git --version
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git status
-          git tag -a ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }} -m ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
+      # - name: git
+      #   run: |
+      #     # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+      #     git --version
+      #     git config user.name "GitHub Actions Bot"
+      #     git config user.email "<>"
+      #     git status
+      #     git tag -a ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }} -m ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          custom_tag: ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
+        #  github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
