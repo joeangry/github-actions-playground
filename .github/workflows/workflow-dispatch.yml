@@ -56,5 +56,5 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git status
-          git git tag -a ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
+          git tag -a ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
           git describe
