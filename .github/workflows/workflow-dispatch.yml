@@ -55,7 +55,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           custom_tag: ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
-        #  github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
