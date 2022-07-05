@@ -39,6 +39,7 @@ jobs:
           echo Build number is ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
           echo Build number is ${{ steps.foo.outputs.build-number }}
           echo Im in the branch ${GITHUB_REF#refs/heads/}
+          echo I am running in ${GITHUB_WORKSPACE}
           echo ::set-output name=test::${{ steps.foo.outputs.build-number }}
 
       # - name: git
