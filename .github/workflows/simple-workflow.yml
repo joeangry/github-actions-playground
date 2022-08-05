@@ -10,11 +10,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-step:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.get-build-number.outputs.test }}
+      output1: ${{ steps.get-build-number.outputs.build-number }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -36,14 +36,15 @@ jobs:
     steps:
       - id: print-build-number
         name: Print build number from step output
+        needs: build-step
         run: |
-          echo Build number from output: ${{ steps.output-build-number.build-number }}
+          echo Build number from output: ${{ needs.build-step.outputs.output1 }}
 
   dump_contexts_to_log:
       runs-on: ubuntu-latest
       steps:
         - name: Print environment variable
-          run: echo ${{needs.build.outputs.test}}
+          run: echo ${{needs.build-step.outputs.test}}
         - name: Dump GitHub context
           id: github_context_step
           run: echo '${{ toJSON(github) }}'
