@@ -14,29 +14,30 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.foo.outputs.test }}
+      output1: ${{ steps.get-build-number.outputs.test }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Get current date
-        id: build-date
-        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
-
-      - id: foo
+      - id: get-build-number
         uses: ./.github/actions/get-build-number
         with:
           version-number: ${{ github.run_number }}${{ github.run_attempt }}
 
-      # Runs a single command using the runners shell
-      - id: output-test
-        name: Run a one-line script
+      - id: output-build-number
+        name: Export output to other build steps
         run: |
-          echo Build number is ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
-          echo Build number is ${{ steps.foo.outputs.build-number }}
-          echo Im in the branch ${GITHUB_REF#refs/heads/}
-          echo ::set-output name=test::${{ steps.foo.outputs.build-number }}
+          echo Build number is ${{ steps.get-build-number.outputs.build-number }}
+          echo ::set-output name=build-number::${{ steps.get-build-number.outputs.build-number }}
+
+  consume-build-number:
+    runs-on: ubuntu-latest
+    steps:
+      - id: print-build-number
+        name: Print build number from step output
+        run: |
+          echo Build number from output: ${{ steps.output-build-number.build-number }}
 
   dump_contexts_to_log:
       runs-on: ubuntu-latest
@@ -56,21 +57,3 @@ jobs:
         #   run: echo '${{ toJSON(strategy) }}'
         # - name: Dump matrix context
         #   run: echo '${{ toJSON(matrix) }}'
-
-
-  tag_release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      - name: git
-        run: |
-          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-          git --version
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git status
-          git git tag -a ${{ steps.foo.outputs.build-number }}
-          git describe
