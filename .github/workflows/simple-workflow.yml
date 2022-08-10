@@ -59,3 +59,11 @@ jobs:
         #   run: echo '${{ toJSON(strategy) }}'
         # - name: Dump matrix context
         #   run: echo '${{ toJSON(matrix) }}'
+
+  run-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - id: run-docker
+        name: Run Hello World container
+        run: |
+          docker run hello-world
