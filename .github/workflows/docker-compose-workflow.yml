@@ -18,7 +18,7 @@ jobs:
         with:
           include: "./deployment/docker-compose/.env.github"
           find: "<replace-me>"
-          replace:  ${{ env.DOTNET_VERSION }}
+          replace:  '1.0.0'
           regex: false
 
       - uses: isbang/compose-action@v1.3.2
