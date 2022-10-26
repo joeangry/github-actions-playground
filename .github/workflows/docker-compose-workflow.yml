@@ -18,12 +18,13 @@ jobs:
         with:
           include: "./deployment/docker-compose/.env.github"
           find: "<replace-me>"
-          replace:  '1.0.0'
+          replace:  '6.2.4'
           regex: false
 
       - uses: isbang/compose-action@v1.3.2
         with:
           compose-file: "./deployment/docker-compose/docker-compose.test-services.yml"
+          compose-flags: --env-file="./deployment/docker-compose/.env.github"
         env:
           CUSTOM_VARIABLE: "test"
           services: |
