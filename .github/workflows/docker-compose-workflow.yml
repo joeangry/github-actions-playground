@@ -24,7 +24,7 @@ jobs:
       - uses: isbang/compose-action@v1.3.2
         with:
           compose-file: "./deployment/docker-compose/docker-compose.test-services.yml"
-          compose-flags: --env-file="./deployment/docker-compose/.env.github"
+          compose-flags: --env-file=./deployment/docker-compose/.env.github
         env:
           CUSTOM_VARIABLE: "test"
           services: |
