@@ -13,9 +13,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: lol
-        run: |
-          echo 'fuck steppet nedeunder!'
+      - name: Find and Replace 
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          include: "./deployment/docker-compose/.env.github"
+          find: "<replace-me>"
+          replace:  ${{ env.DOTNET_VERSION }}
+          regex: false
 
       - uses: isbang/compose-action@v1.3.2
         with:
