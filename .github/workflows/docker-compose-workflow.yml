@@ -21,6 +21,11 @@ jobs:
           replace:  '6.2.4'
           regex: false
 
+      # Print replaced version?!
+      - name: Do something
+        run: | 
+          cat ./deployment/docker-compose/.env.github
+
       - uses: isbang/compose-action@v1.3.2
         with:
           compose-file: "./deployment/docker-compose/docker-compose.test-services.yml"
