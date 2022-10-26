@@ -17,9 +17,9 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           include: "./deployment/docker-compose/.env.github"
-          find: "<replace-me>"
-          replace:  '6.2.4'
-          regex: false
+          find: <replace-me>
+          replace: '6.2.4'
+          regex: true
 
       # Print replaced version?!
       - name: Do something
