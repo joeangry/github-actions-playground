@@ -5,6 +5,9 @@ name: Docker Compose Workflow
 on:
   workflow_dispatch
 
+env:
+  TEST_VERSION=0.0.1
+
 jobs:
   build-step:
     runs-on: ubuntu-latest
@@ -13,17 +16,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Find and Replace 
-        uses: jacobtomlinson/gha-find-replace@v2
-        with:
-          include: "./deployment/docker-compose/.env.github"
-          find: <replace-me>
-          replace: '6.2.4'
-          regex: true
-
       # Print replaced version?!
       - name: Do something
         run: | 
+          sed -i 's/<replace-me>/${{env.TEST_VERSION}}/g' ./deployment/docker-compose/.env.github
           cat ./deployment/docker-compose/.env.github
 
       - uses: isbang/compose-action@v1.3.2
