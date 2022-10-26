@@ -13,6 +13,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: lol
+        run: |
+          echo 'fuck steppet nedeunder!'
+
       - uses: isbang/compose-action@v1.3.2
         with:
           compose-file: "./deployment/docker-compose/docker-compose.test-services.yml"
