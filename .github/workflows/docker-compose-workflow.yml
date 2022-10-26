@@ -12,10 +12,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+
       - uses: isbang/compose-action@v1.3.2
         with:
-          compose-file: "./docker-compose.test-services.yml"
+          compose-file: "./deployment/docker-compose/docker-compose.test-services.yml"
         env:
           CUSTOM_VARIABLE: "test"
           services: |
