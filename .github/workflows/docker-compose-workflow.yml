@@ -15,7 +15,7 @@ jobs:
       - uses: isbang/compose-action@v1.3.2
         with:
           compose-file: "./docker-compose.yml"
-          env:
-            CUSTOM_VARIABLE: "test"
+        env:
+          CUSTOM_VARIABLE: "test"
           services: |
             redis
