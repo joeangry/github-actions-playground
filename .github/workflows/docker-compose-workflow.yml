@@ -6,7 +6,8 @@ on:
   workflow_dispatch
 
 env:
-  TEST_VERSION=0.0.1
+  DOTNET_VERSION: '6.0.x'
+  NODE_VERSION: '14.x'
 
 jobs:
   build-step:
@@ -19,7 +20,7 @@ jobs:
       # Print replaced version?!
       - name: Do something
         run: | 
-          sed -i 's/<replace-me>/${{env.TEST_VERSION}}/g' ./deployment/docker-compose/.env.github
+          sed -i 's/<replace-me>/${{env.DOTNET_VERSION}}/g' ./deployment/docker-compose/.env.github
           cat ./deployment/docker-compose/.env.github
 
       - uses: isbang/compose-action@v1.3.2
