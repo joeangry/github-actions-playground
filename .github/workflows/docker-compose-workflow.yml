@@ -1,0 +1,21 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-step:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.3.2
+        with:
+          compose-file: "./docker-compose.yml"
+          env:
+            CUSTOM_VARIABLE: "test"
+          services: |
+            redis

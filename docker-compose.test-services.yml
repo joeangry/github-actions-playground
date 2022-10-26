@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+
+  # Redis
+  redis:
+    image: redis:6.2.6
+    container_name: live-redis
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETGID
+      - SETUID
+    ports:
+      - "6379:6379"
+    networks:
+      - live-services
