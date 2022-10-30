@@ -12,7 +12,7 @@ jobs:
       - id: container-setup
         name: Setup SQL Server in Docker
         run: |
-          docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+          docker run --name sql-container -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 
       - uses: actions/setup-dotnet@v3
         with:
@@ -26,4 +26,4 @@ jobs:
       - id: run-code
         name: Run code
         run: |
-          dotnet run IntegrationTestPlayground/MyProgram/MyProgram.csproj
+          dotnet run --project IntegrationTestPlayground/MyProgram/MyProgram.csproj "Data Source=sql-container;Initial Catalog=master;User Id=sa;Password=yourStrong(!)Password;"
