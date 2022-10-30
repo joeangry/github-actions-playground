@@ -8,22 +8,23 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      id: container-setup
+      - uses: actions/checkout@v3
+
+      - id: container-setup
       name: Setup SQL Server in Docker
       run: |
         docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 
-      - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
 
-      id: build-code
-      name: Build .NET project
-      run: |
-        dotnet build IntegrationTestPlayground/IntegrationTestPlayground.sln
+      - id: build-code
+        name: Build .NET project
+        run: |
+          dotnet build IntegrationTestPlayground/IntegrationTestPlayground.sln
 
-      id: run-code
-      name: Run code
-      run: |
-        dotnet run IntegrationTestPlayground/MyProgram/MyProgram.csproj
+      - id: run-code
+        name: Run code
+        run: |
+          dotnet run IntegrationTestPlayground/MyProgram/MyProgram.csproj
