@@ -26,4 +26,4 @@ jobs:
       - id: run-code
         name: Run code
         run: |
-          dotnet run --project IntegrationTestPlayground/MyProgram/MyProgram.csproj "Data Source=sql-container;Initial Catalog=master;User Id=sa;Password=yourStrong(!)Password;"
+          dotnet run --project IntegrationTestPlayground/MyProgram/MyProgram.csproj "Data Source=localhost;Initial Catalog=master;User Id=sa;Password=yourStrong(!)Password;"
