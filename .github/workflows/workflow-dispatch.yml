@@ -15,10 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get current date
-        id: build-date
-        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
-
       - id: foo
         uses: ./.github/actions/get-build-number
         with:
@@ -28,21 +24,3 @@ jobs:
         name: Run a one-line script
         run: |
           echo Build number is ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
-          echo Build number is ${{ steps.foo.outputs.build-number }}
-          echo Im in the branch ${GITHUB_REF#refs/heads/}
-          echo I am running in ${GITHUB_WORKSPACE}
-          echo ::set-output name=test::${{ steps.foo.outputs.build-number }}
-
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          custom_tag: ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
