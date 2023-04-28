@@ -20,10 +20,11 @@ jobs:
         run: echo "build-date-output=${{env.BUILD_VERSION}}.$GITHUB_RUN_ATTEMPT" >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: Set output
+      - id: output-my-value
+        name: Set output
         run: echo "MYVALUE=can you read this?" >> $GITHUB_OUTPUT
 
       - id: output-test
         name: Run a one-line script
         run: |
-          echo Build number is ${{ steps.build-date.outputs.date }}.${{ github.run_attempt }}
+          echo Build number is ${{ steps.output-my-value.outputs.MYVALUE }}
