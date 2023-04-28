@@ -18,5 +18,8 @@ runs:
 
     - name: Get current date
       id: build-date
-      run: echo "build-date-output=${{env.BUILD_VERSION}}.$GITHUB_RUN_ATTEMPT" >> $GITHUB_ENV
+      run: echo "build-date-output=${{env.BUILD_VERSION}}.$GITHUB_RUN_ATTEMPT" >> $GITHUB_OUTPUT
       shell: bash
+
+    - name: Set output
+      run: echo "{name}={value}" >> $GITHUB_OUTPUT
