@@ -18,5 +18,5 @@ runs:
 
     - name: Get current date
       id: build-date
-      run: echo "::set-output name=build-date-output::$(date +'%Y.%m.%d')"
+      run: echo "build-date-output=${{env.BUILD_VERSION}}.$GITHUB_RUN_ATTEMPT" >> $GITHUB_ENV
       shell: bash
