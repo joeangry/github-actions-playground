@@ -22,7 +22,7 @@ jobs:
       - id: print-build-number
         name: Print the build number from the previous step
         run: |
-          echo Build number is ${{ steps.get-build-number.outputs.HELLO }}
+          echo Build number is ${{ steps.set-build-number.outputs.build-date-output }}
 
   consume-build-version:
     runs-on: ubuntu-latest
