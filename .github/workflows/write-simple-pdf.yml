@@ -1,0 +1,41 @@
+name: Write PDF
+
+on:
+  push
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - id: write-some-markdown
+        name: Write some markdown
+        run: |
+          echo "Hello this is a message from GitHub Actions. Here's some information about the run ${{ github.run_number }}${{ github.run_attempt }}" >> ./doc/test.md
+
+      - uses: mkrakowitzer/actions-makepdfs@master
+        name: Convert to PDF
+        with:
+          markdown_dir: doc
+          output_dir: tmp
+
+      - uses: actions/upload-artifact@v1
+        name: Upload PDF file
+        with:
+          name: platform-architecture-docs
+          path: tmp
+
+  consume-build-version:
+    runs-on: ubuntu-latest
+    needs: generate-build-version
+    steps:
+      - env:
+          OUTPUT1: ${{needs.generate-build-version.outputs.build-version}}
+        run: |
+          echo "Build number $OUTPUT1"
+
+              
+              
+            
