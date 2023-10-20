@@ -13,6 +13,7 @@ jobs:
       - id: write-some-markdown
         name: Write some markdown
         run: |
+          touch ./doc/test.md
           echo "Hello this is a message from GitHub Actions. Here's some information about the run ${{ github.run_number }}${{ github.run_attempt }}" >> ./doc/test.md
 
       - uses: mkrakowitzer/actions-makepdfs@master
