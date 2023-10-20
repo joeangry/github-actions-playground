@@ -17,7 +17,7 @@ jobs:
           contents: |
             Hello World!
             Here's some information about the run ${{ github.run_number }}${{ github.run_attempt }}
-        write-mode: append
+          write-mode: append
 
       - uses: mkrakowitzer/actions-makepdfs@master
         name: Convert to PDF
