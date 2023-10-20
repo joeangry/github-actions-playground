@@ -10,12 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      uses: DamianReeves/write-file-action@master
-      with:
-        path: doc/test.md
-        contents: |
-          Hello World!
-          Here's some information about the run ${{ github.run_number }}${{ github.run_attempt }}
+      - name: Write MD file
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: doc/test.md
+          contents: |
+            Hello World!
+            Here's some information about the run ${{ github.run_number }}${{ github.run_attempt }}
         write-mode: append
 
       - uses: mkrakowitzer/actions-makepdfs@master
