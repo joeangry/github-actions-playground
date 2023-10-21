@@ -19,7 +19,7 @@ jobs:
             Here's some information about the run ${{ github.run_number }}${{ github.run_attempt }}
           write-mode: append
 
-      - uses: mkrakowitzer/actions-makepdfs@master
+      - uses: mkrakowitzer/actions-makepdfs@1.1
         name: Convert to PDF
         with:
           markdown_dir: doc
